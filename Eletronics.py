@@ -20,3 +20,46 @@ Database columns:
     Add-on Total: Total price of add-ons purchased (numeric)
 
 '''
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+eletronics = pd.read_csv(r"Electronic_sales_Sep2023-Sep2024.csv",
+                         header=0,
+                         index_col=False)
+
+# dataframe shape: 16 columns x 20,000 rows
+print('Dataframe shape:', eletronics.shape)
+#print(eletronics.head())
+
+# convert dates to datetype mode
+#print(eletronics.dtypes)
+eletronics['Purchase Date'] = pd.to_datetime(eletronics['Purchase Date'])
+
+# checking duplicates
+# Customer ID is duplicated because the same customer purchased multiple times
+#print(eletronics[ eletronics.duplicated(['Customer ID']) ])
+
+# NULL VALUES
+#print(eletronics.isnull().sum()) # Gender and Add-ons have null values
+
+# print gender null value and check if row is duplicated
+#print(eletronics[ eletronics['Gender'].isnull() == True ])
+#print(eletronics[ eletronics['Customer ID'] == 19998 ])
+# replace missing value
+eletronics['Gender'] = eletronics['Gender'].fillna("Unknown")
+
+# print add-ons missing values
+#print(eletronics[ eletronics['Add-ons Purchased'].isnull() == True ])
+# replace missing values
+eletronics['Add-ons Purchased'] = eletronics['Add-ons Purchased'].fillna('None')
+
+print(eletronics.describe())
+print(eletronics.head())
+
+fig1 = plt.figure(figsize=(5,5))
+plt.hist(eletronics['Age'])
+plt.xlabel('Age')
+plt.ylabel('Counts')
+fig1.show()
