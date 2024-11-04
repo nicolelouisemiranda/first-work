@@ -45,10 +45,11 @@ eletronics['Purchase Date'] = pd.to_datetime(eletronics['Purchase Date'])
 #print(eletronics.isnull().sum()) # Gender and Add-ons have null values
 
 # print gender null value and check if row is duplicated
-#print(eletronics[ eletronics['Gender'].isnull() == True ])
+print(eletronics[ eletronics['Gender'].isnull() == True ])
 #print(eletronics[ eletronics['Customer ID'] == 19998 ])
-# replace missing value
-eletronics['Gender'] = eletronics['Gender'].fillna("Unknown")
+# delete missing value
+#eletronics['Gender'] = eletronics['Gender'].fillna("Unknown")
+eletronics = eletronics.drop(index=19999, axis=0)
 
 # print add-ons missing values
 #print(eletronics[ eletronics['Add-ons Purchased'].isnull() == True ])
@@ -63,3 +64,13 @@ plt.hist(eletronics['Age'])
 plt.xlabel('Age')
 plt.ylabel('Counts')
 fig1.show()
+
+fig2 = plt.figure(figsize=(5, 5))
+plt.hist(eletronics['Gender'])
+plt.xlabel('Gender')
+plt.ylabel('Counts')
+fig2.show()
+
+
+
+
